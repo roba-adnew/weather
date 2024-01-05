@@ -7,7 +7,6 @@ export async function getCurrentWeather(lat, lon) {
     try {
         const weatherResponse = await fetch(weatherApiCallUrl, {mode: 'cors'});
         const weatherData = await processWeatherJSON(weatherResponse);
-        console.log(weatherData);
         return weatherData;
     }
     catch (error) {
@@ -24,7 +23,7 @@ export async function processWeatherJSON(weatherRawResponse) {
         const feelsLikeTemp = weatherData.main.feels_like;
         const weatherType = weatherData.weather[0].main;
         const weatherDescription = weatherData.weather[0].description;
-        const weatherIcon = weatherData.weather[0].icon;
+        const iconCode = weatherData.weather[0].icon;
 
     return {
         locationName, 
@@ -32,7 +31,7 @@ export async function processWeatherJSON(weatherRawResponse) {
         feelsLikeTemp, 
         weatherType, 
         weatherDescription, 
-        weatherIcon}
+        iconCode}
     }
     catch (error) {
         console.log('There was an issue: ' + error);  
@@ -45,7 +44,6 @@ export async function getLocationData(postalCode) {
     try {
         const locationResponse = await fetch(geocodeApiCallUrl, {mode: 'cors'});
         const locationData = await locationResponse.json();
-        console.log(locationData);
         return locationData;
     }
     catch (error) {

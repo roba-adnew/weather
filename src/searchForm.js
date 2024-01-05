@@ -27,7 +27,7 @@ export function startSearchListeners() {
         const lat = await locationData.lat;
         const lon = await locationData.lon;
         const currentWeather = await getCurrentWeather(lat,lon);
-        const weatherDisplay = await displayWeather(currentWeather);
+        await displayWeather(currentWeather);
     }
 
     submitButton.addEventListener('click', searchLocation, false)

@@ -1,26 +1,52 @@
 export function displayWeather(weatherData) {
-
-    const weatherIcon = getWeatherIcon(weatherData.weatherIcon);
-    document.body.appendChild(weatherIcon);
-
-    const overall = buildHtmlElements('h3','statement');
-    statement.innerHTML = `Right now in ${weatherData.locationName} it is 
-        ${weatherData.actualTemp}&deg and ${weatherData.weatherType}`;
+    const currentWeatherIconElement = document.getElementById('icon');
+    if (currentWeatherIconElement) {
+        currentWeatherIconElement.src = 
+            `https://openweathermap.org/img/wn/${weatherData.iconCode}@2x.png`;
+    }
+    else {
+        const weatherIcon = getWeatherIcon(weatherData.iconCode);
+        document.body.appendChild(weatherIcon);
+    }
     
-    const actual = buildHtmlElements('h4', 'actual');
-    actual.innerHTML = `...and even though it's ${weatherData.actualTemp} it 
+    const currentStatement = document.getElementById('statement');
+    if (currentStatement) {
+        statement.innerHTML = `Right now in ${weatherData.locationName} it is 
+        ${weatherData.actualTemp}&deg and ${weatherData.weatherType}`;
+    }
+    else {
+        const statement = buildHtmlElements('h3','statement', weatherData);
+        document.body.appendChild(statement);
+    }
+
+    const currentActual = document.getElementById('actual');
+    if (currentActual) {
+        `...and even though it's ${weatherData.actualTemp} it 
         feels like ${weatherData.feelsLikeTemp}&deg`
+    }
+    else {
+        const actual = buildHtmlElements('h4', 'actual', weatherData);
+        document.body.appendChild(actual);
+    }
 }
 
-function buildHtmlElements(element, id) {
-    const htmlElement = document.createElement(element);
+function buildHtmlElements(elementType, id, weatherData) {
+    const htmlElement = document.createElement(elementType);
     htmlElement.id = id;
-    document.body.appendChild(htmlElement);
+    if (id === 'statement') {
+        htmlElement.innerHTML = `Right now in ${weatherData.locationName} it is 
+        ${weatherData.actualTemp}&deg and ${weatherData.weatherType}`;
+    }
+    else if (id === 'actual') {
+        htmlElement.innerHTML = `...and even though it's ${weatherData.actualTemp} it 
+        feels like ${weatherData.feelsLikeTemp}&deg`
+    }
     return htmlElement;
 }
 
 function getWeatherIcon(iconCode){
     const weatherIcon = new Image();
-    weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    weatherIcon.id = 'icon';
+    weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;    
     return weatherIcon;
 }
