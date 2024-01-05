@@ -1,4 +1,5 @@
 import { getCurrentWeather, getLocationData } from "./getData";
+import { displayWeather } from "./weatherDisplay";
 
 export function createSearchForm() {
     const searchForm = document.createElement('form');
@@ -26,11 +27,8 @@ export function startSearchListeners() {
         const lat = await locationData.lat;
         const lon = await locationData.lon;
         const currentWeather = await getCurrentWeather(lat,lon);
+        const weatherDisplay = await displayWeather(currentWeather);
     }
 
     submitButton.addEventListener('click', searchLocation, false)
 }
-
-// function roundToHundredth(number) {
-//     return Math.floor(number * 100) / 100;
-// }

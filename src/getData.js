@@ -8,6 +8,7 @@ export async function getCurrentWeather(lat, lon) {
         const weatherResponse = await fetch(weatherApiCallUrl, {mode: 'cors'});
         const weatherData = await processWeatherJSON(weatherResponse);
         console.log(weatherData);
+        return weatherData;
     }
     catch (error) {
         console.log('There was an issue: ' + error);  
