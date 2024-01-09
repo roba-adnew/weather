@@ -39,7 +39,7 @@ export async function processWeatherJSON(weatherRawResponse) {
 }
 
 export async function getLocationData(postalCode) {
-    const geocodeApiCallUrl = `http://api.openweathermap.org/geo/1.0/zip?zip=${postalCode}&appid=${WEATHER_API_KEY}`;
+    const geocodeApiCallUrl = `https://api.openweathermap.org/geo/1.0/zip?zip=${postalCode}&appid=${WEATHER_API_KEY}`;
 
     try {
         const locationResponse = await fetch(geocodeApiCallUrl, {mode: 'cors'});
